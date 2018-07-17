@@ -1,10 +1,7 @@
 module.exports = function (grunt) {
 
-    require('jit-grunt')(grunt);
-
     grunt.loadNpmTasks('grunt-karma');
-
-    grunt.initConfig({
+    grunt.init({
         pkg: grunt.file.readJSON('package.json'),
         karma: {
             options: {
@@ -13,19 +10,10 @@ module.exports = function (grunt) {
             continuous: {
                 singleRun: true,
                 browsers: ['PhantomJS'],
-                reporters: ['spec', 'junit', 'html'],
-                junitReporter: {
-                    outputDir: 'specs/results',
-                    suite: 'AngularJS sample application'
-                },
-                htmlReporter: {
-                    outputFile: 'specs/results/results.html'
-                },
-            },
-            dev: {
+                reporters: ['junit']
             }
         }
     });
-
     grunt.registerTask('default', ['karma:continuous']);
+    
 };
