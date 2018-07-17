@@ -3,7 +3,7 @@ describe('when passing a value to percentageRenderer component', function() {
     var parentScope;
     var element;
 
-    beforeEach(angular.mock.module('app'));
+    beforeEach(angular.mock.module('app.components'));
     beforeEach(inject(function($compile, $rootScope){
         parentScope = $rootScope.$new();
         parentScope.someAttr = 0.65;

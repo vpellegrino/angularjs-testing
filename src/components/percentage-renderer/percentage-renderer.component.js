@@ -1,4 +1,4 @@
-angular.module('app', [])
+angular.module('app.components', [])
     .component('percentageRenderer', {
         bindings: {
             value: '<' // percentage value, from 0 to 1
