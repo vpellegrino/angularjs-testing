@@ -21,4 +21,4 @@ Furthermore it will be produced an XML file containing test results in the proje
 ## Further information 
 The JavaScript framework used to describe unit tests is JASMINE.
 
-More about JASMINE can be found at `<link>`<https://jasmine.github.io/pages/getting_started.html>
+More about JASMINE can be found at <https://jasmine.github.io/pages/getting_started.html>
