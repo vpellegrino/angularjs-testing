@@ -1,5 +1,8 @@
 {
   "name": "angularjs-testing",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  },
   "devDependencies": {
     "angular": "1.6.6",
     "angular-mocks": "1.6.6",

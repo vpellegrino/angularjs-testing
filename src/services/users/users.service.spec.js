@@ -1,6 +1,7 @@
 describe('when users service is invoked', function() {
 
-    var usersService;
+    var usersService, $httpBackend;
+
     var userList = [
         {
             id: '1',
@@ -15,49 +16,50 @@ describe('when users service is invoked', function() {
             role: 'Developer',
             location: 'New York',
             twitter: 'billybob'
-        },
-        {
-            id: '3',
-            name: 'Jim',
-            role: 'Developer',
-            location: 'Chicago',
-            twitter: 'jimbo'
-        },
-        {
-            id: '4',
-            name: 'Bill',
-            role: 'Designer',
-            location: 'LA',
-            twitter: 'dabill'
         }
     ];
-    var singleUser = {
-        id: '2',
-        name: 'Bob',
-        role: 'Developer',
-        location: 'New York',
-        twitter: 'billybob'
-    };
 
     beforeEach(angular.mock.module('app.services'));
 
-    beforeEach(inject(function(_UsersService_) {
+    beforeEach(inject(function(_UsersService_, $injector) {
         usersService = _UsersService_;
+        $httpBackend = $injector.get('$httpBackend');
+        $httpBackend.when('GET', "./users.mocked.json").respond({data: userList});
     }));
+
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
 
     describe('retrieving all available users', function() {
         it('should return a hard-coded list of users', function() {
-            expect(usersService.all()).toEqual(userList);
+            usersService.getAll().then(function(users) {
+                expect(users).toEqual(userList);
+            });
+            $httpBackend.flush();
         });
     });
 
     describe('retrieving a particular user by its own id', function() {
         it('should return one user object if it exists', function() {
-            expect(usersService.findById('2')).toEqual(singleUser);
+            usersService.findById('2').then(function(user) {
+                expect(user).toEqual({
+                    id: '2',
+                    name: 'Bob',
+                    role: 'Developer',
+                    location: 'New York',
+                    twitter: 'billybob'
+                })
+            });
+            $httpBackend.flush();
         });
 
         it('should return undefined if the user cannot be found', function() {
-            expect(usersService.findById('ABC')).not.toBeDefined();
+            usersService.findById('ABC').then(function(user) {
+                expect(user).not.toBeDefined();
+            });
+            $httpBackend.flush();
         });
     });
 

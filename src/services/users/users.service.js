@@ -1,49 +1,28 @@
 angular.module('app.services', [])
-    .service('UsersService', function () {
+    .constant('_', window._)
+    .service('UsersService', function ($http, _) {
         var Users = {};
-        var userList = [
-            {
-                id: '1',
-                name: 'Jane',
-                role: 'Designer',
-                location: 'New York',
-                twitter: 'gijane'
-            },
-            {
-                id: '2',
-                name: 'Bob',
-                role: 'Developer',
-                location: 'New York',
-                twitter: 'billybob'
-            },
-            {
-                id: '3',
-                name: 'Jim',
-                role: 'Developer',
-                location: 'Chicago',
-                twitter: 'jimbo'
-            },
-            {
-                id: '4',
-                name: 'Bill',
-                role: 'Designer',
-                location: 'LA',
-                twitter: 'dabill'
-            }
-        ];
 
-        Users.all = function () {
-            return userList;
+        Users.getAll = function () {
+            return _retrieveAllByPredicate(function() { return true });
         };
 
         Users.findById = function (id) {
-            for (var i=0; i<userList.length; i++) {
-                var user = userList[i];
-                if (user.hasOwnProperty('id') && user.id === id) {
-                    return user;
-                }
-            }
+            return _retrieveAllByPredicate(function(user) {
+                return user.hasOwnProperty('id') && user.id === id;
+            }).then(function (foundUsers) {
+                return angular.isArray(foundUsers) && foundUsers.length && _.first(foundUsers) || undefined;
+            });
         };
+
+        function _retrieveAllByPredicate(predicate) {
+            return $http({method: 'GET', url: "./users.mocked.json"})
+                .then(function (response) {
+                    return _.filter(response.data.data, predicate);
+                }, function (error) {
+                    console.error("Something went wrong, while loading users", error);
+                });
+        }
 
         return Users;
     });
