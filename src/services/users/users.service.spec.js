@@ -41,8 +41,8 @@ describe('when users service is invoked', function() {
 
     beforeEach(angular.mock.module('app.services'));
 
-    beforeEach(inject(function(_usersService_) {
-        usersService = _usersService_;
+    beforeEach(inject(function(_UsersService_) {
+        usersService = _UsersService_;
     }));
 
     describe('retrieving all available users', function() {

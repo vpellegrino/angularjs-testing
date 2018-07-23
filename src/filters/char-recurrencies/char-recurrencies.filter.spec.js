@@ -4,7 +4,7 @@ describe('when applying charRecurrences filter', function () {
     beforeEach(module('app.filters'));
 
     beforeEach(inject(function ($filter) {
-        getCharRecurrencesFilter = $filter('getCharRecurrences');
+        getCharRecurrencesFilter = $filter('CharRecurrencesFilter');
     }));
 
     describe('given an empty input list', function () {

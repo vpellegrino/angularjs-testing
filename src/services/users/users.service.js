@@ -1,5 +1,5 @@
 angular.module('app.services', [])
-    .service('usersService', function () {
+    .service('UsersService', function () {
         var Users = {};
         var userList = [
             {

@@ -1,5 +1,5 @@
 angular.module('app.filters', [])
-    .filter('getCharRecurrences', function () {
+    .filter('CharRecurrencesFilter', function () {
         return function (input) {
 
             if (!angular.isArray(input) || !input.length) {
