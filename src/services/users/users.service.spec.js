@@ -28,6 +28,7 @@ describe('when users service is invoked', function() {
     }));
 
     afterEach(function() {
+        $httpBackend.flush();
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
     });
@@ -37,7 +38,6 @@ describe('when users service is invoked', function() {
             usersService.getAll().then(function(users) {
                 expect(users).toEqual(userList);
             });
-            $httpBackend.flush();
         });
     });
 
@@ -52,14 +52,12 @@ describe('when users service is invoked', function() {
                     twitter: 'billybob'
                 })
             });
-            $httpBackend.flush();
         });
 
         it('should return undefined if the user cannot be found', function() {
             usersService.findById('ABC').then(function(user) {
                 expect(user).not.toBeDefined();
             });
-            $httpBackend.flush();
         });
     });
 
