@@ -1,3 +1,7 @@
+/**
+ * AngularJS filter used to display char recurrences for a given string
+ * @author vpellegr
+ */
 angular.module('app.filters', [])
     .filter('CharRecurrencesFilter', function () {
         return function (input) {

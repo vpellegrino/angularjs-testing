@@ -1,3 +1,7 @@
+/**
+ * AngularJS component used to render percentage, given a number between 0 and 1
+ * @author vpellegr
+ */
 angular.module('app.components', [])
     .component('percentageRenderer', {
         bindings: {
